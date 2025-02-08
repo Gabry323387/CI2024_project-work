@@ -13,15 +13,15 @@ class Node:
         self.left = left    # For binary and unary operators (left child holds the operand)
         self.right = right  # For binary operators
 
-    def clone(self):
+    def clone_node(self):
         """
         Create a deep copy of the node and its subtree.
         
         Returns:
             Node: A new node that is a deep copy of the current node and its subtree.
         """
-        left_clone = self.left.clone() if self.left is not None else None
-        right_clone = self.right.clone() if self.right is not None else None
+        left_clone = self.left.clone_node() if self.left is not None else None
+        right_clone = self.right.clone_node() if self.right is not None else None
         return Node(self.node_type, self.value, left_clone, right_clone)
 
     def to_string(self):

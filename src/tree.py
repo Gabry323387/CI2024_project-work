@@ -155,7 +155,7 @@ class Tree:
             Tree: A new tree object that is a deep copy of the current tree.
         """
         new_tree = Tree(max_depth=self.max_depth, x_train=self.x_train, y_train=self.y_train, tree_attempts=self.tree_attempts)
-        new_tree.root = self.root.clone() if self.root is not None else None
+        new_tree.root = self.root.clone_node() if self.root is not None else None
         new_tree.fitness = self.fitness
         return new_tree
 
@@ -382,8 +382,8 @@ class Tree:
             # Similarly for offspring2.
             if (depth1 + height2 <= self.max_depth) and (depth2 + height1 <= self.max_depth):
                 # Clone the chosen subtrees.
-                subtree1 = node1.clone()
-                subtree2 = node2.clone()
+                subtree1 = node1.clone_node()
+                subtree2 = node2.clone_node()
                 
                 # Swap subtree in offspring1.
                 if parent1 is None:
@@ -475,56 +475,6 @@ class Tree:
         plt.title("Tree Structure", fontsize=14)
         draw_node(self.root, 0, 0, 20, 1)
         plt.show()
-
-
-    # def plot(self):
-    #     """Plot the tree. If a node has only one child, the line to that child is drawn vertically.
-    #     The vertical gap between parent and child is minimized by drawing the line from center to center."""
-    #     def draw_node(node, x, y, dx, dy):
-    #         if node is not None:
-    #             # Determine the text to display for the node.
-    #             if node.node_type in ["binary_op", "unary_op"]:
-    #                 text = node.value.__name__
-    #             elif node.node_type == "variable":
-    #                 text = node.to_string()
-    #             elif node.node_type == "constant":
-    #                 # Convert the constant to a float and round it.
-    #                 text = str(round(float(node.to_string()), 2))
-    #             else:
-    #                 text = ""
-                
-    #             # Set color: variables are red; constants are lightgreen; others are lightblue.
-    #             if node.node_type == "variable":
-    #                 color = 'tomato'
-    #             elif node.node_type == "constant":
-    #                 color = 'lightgreen'
-    #             else:
-    #                 color = "lightblue"
-                
-    #             # Draw the node text at its (x, y) position.
-    #             plt.text(x, y, text, ha='center', va='center',
-    #                      bbox=dict(boxstyle='round,pad=0.3', edgecolor='black', facecolor=color))
-                
-    #             # Draw the connection lines and recursively draw child nodes.
-    #             if node.left is not None and node.right is not None:
-    #                 # Two children: draw left and right branches with horizontal offsets.
-    #                 plt.plot([x, x - dx], [y, y - dy], color='black')  # line to left child
-    #                 draw_node(node.left, x - dx, y - dy, dx / 2, dy)
-    #                 plt.plot([x, x + dx], [y, y - dy], color='black')  # line to right child
-    #                 draw_node(node.right, x + dx, y - dy, dx / 2, dy)
-    #             elif node.left is not None:
-    #                 # Only left child exists: draw a vertical line.
-    #                 plt.plot([x, x], [y, y - dy], color='black')
-    #                 draw_node(node.left, x, y - dy, dx / 2, dy)
-    #             elif node.right is not None:
-    #                 # Only right child exists: draw a vertical line.
-    #                 plt.plot([x, x], [y, y - dy], color='black')
-    #                 draw_node(node.right, x, y - dy, dx / 2, dy)
-
-    #     plt.figure(figsize=(15, 10))
-    #     plt.axis('off')
-    #     draw_node(self.root, 0, 0, 20, 1)
-    #     plt.show()
 
     def __str__(self):
         """
