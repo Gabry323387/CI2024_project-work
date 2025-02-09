@@ -283,7 +283,7 @@ class Tree:
         self.compute_fitness()
     
     def mutate_hoist(self):
-        """Replaces a randomly selected subtree with one of its sub-subtrees."""
+        """Replaces the root of the tree with one of its sub-subtrees."""
         nodes = self.get_all_nodes()
         attempts = self.tree_attempts
         if not nodes:
